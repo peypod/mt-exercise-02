@@ -173,7 +173,7 @@ def dumb_init_logs(dropout):
 
     for k,(fpath, i) in epoch_dict.items():
 
-        with open(fpath, "w") as file:
+        with open(fpath, "a") as file:
             file.write(f"Dropout {dropout}\n")
 
 
@@ -217,7 +217,7 @@ def train():
         total_loss += loss.item()
 
         cur_loss = total_loss / args.log_interval
-        dumb_log_perplexity("SINGLE", i, math.exp(cur_loss))
+        dumb_log_perplexity("SINGLE", f"{i}-{batch}", math.exp(cur_loss))
 
         if batch % args.log_interval == 0 and batch > 0:
             cur_loss = total_loss / args.log_interval

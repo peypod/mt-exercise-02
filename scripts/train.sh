@@ -20,7 +20,7 @@ do
     (cd $tools/pytorch-examples/word_language_model &&
         CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python main.py --data $data/dune \
             --epochs 40 \
-            --log-interval 10 \
+            --log-interval 1 \
             --emsize 200 --nhid 200 --dropout $VARIABLE --tied \
             --save $models/model.pt
     )
