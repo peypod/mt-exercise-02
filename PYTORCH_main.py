@@ -8,7 +8,6 @@ import torch.nn as nn
 import torch.onnx
 
 import data
-import model
 
 parser = argparse.ArgumentParser(description='PyTorch Wikitext-2 RNN/LSTM/GRU/Transformer Language Model')
 parser.add_argument('--data', type=str, default='./data/wikitext-2',
@@ -217,7 +216,6 @@ def train():
         total_loss += loss.item()
 
         cur_loss = total_loss / args.log_interval
-        dumb_log_perplexity("SINGLE", f"{i}-{batch}", math.exp(cur_loss))
 
         if batch % args.log_interval == 0 and batch > 0:
             cur_loss = total_loss / args.log_interval
@@ -231,6 +229,8 @@ def train():
 
         if args.dry_run:
             break
+    dumb_log_perplexity("SINGLE", epoch, math.exp(cur_loss))
+
 
 
 def export_onnx(path, batch_size, seq_len):
@@ -259,6 +259,7 @@ try:
                                            val_loss, math.exp(val_loss)))
         print('-' * 89)
         dumb_log_perplexity("EPOCH", epoch, math.exp(val_loss))
+
 
         # Save the model if the validation loss is the best we've seen so far.
         if not best_val_loss or val_loss < best_val_loss:
