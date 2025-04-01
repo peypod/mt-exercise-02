@@ -16,7 +16,6 @@ for key, path in PATH_DICT.items():
         # Split by Droput
         # Line up as columns
         # save as .csv
-        pass
 
         data = {"Perplexity":[]}
         current_dropout = None
